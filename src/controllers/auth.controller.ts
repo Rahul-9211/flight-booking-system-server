@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, UseGuards, Request, HttpException, HttpStatus } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
-import { AuthGuard } from '@nestjs/passport';
+import { SupabaseAuthGuard } from '../auth/supabase-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -36,16 +36,10 @@ export class AuthController {
   }
 
   @Get('profile')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(SupabaseAuthGuard)
   async getProfile(@Request() req) {
     try {
-      // Log the user object to see what's available
-      console.log('User from request:', req.user);
-      
-      if (!req.user || !req.user.id) {
-        throw new HttpException('User not found in request', HttpStatus.UNAUTHORIZED);
-      }
-      
+      console.log('Getting profile for user:', req.user.id);
       return await this.authService.getProfile(req.user.id);
     } catch (error) {
       console.error('Profile error:', error);
