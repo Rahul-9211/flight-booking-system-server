@@ -21,7 +21,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"Password123!\",\n    \"full_name\": \"John Doe\",\n    \"phone_number\": \"+1234567890\"\n}"
+							"raw": "{\n    \"email\": \"test.user@gmail.com\",\n    \"password\": \"Test123456!\",\n    \"full_name\": \"Test User\",\n    \"phone_number\": \"+1234567890\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/auth/signup",
@@ -50,7 +50,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"Password123!\"\n}"
+							"raw": "{\n    \"email\": \"test.user@gmail.com\",\n    \"password\": \"Test123456!\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/auth/signin",
@@ -394,12 +394,120 @@
 				}
 			],
 			"description": "Booking-related endpoints"
+		},
+		{
+			"name": "Payments",
+			"item": [
+				{
+					"name": "Get User Payments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"payments"
+							]
+						},
+						"description": "Get all payments for the current user"
+					}
+				},
+				{
+					"name": "Get Payment by Booking ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/payments/booking/{{booking_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"payments",
+								"booking",
+								"{{booking_id}}"
+							]
+						},
+						"description": "Get payment details for a specific booking"
+					}
+				},
+				{
+					"name": "Process Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/payments/{{payment_id}}/process",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"payments",
+								"{{payment_id}}",
+								"process"
+							]
+						},
+						"description": "Process a pending payment"
+					}
+				},
+				{
+					"name": "Refund Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/payments/{{payment_id}}/refund",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"payments",
+								"{{payment_id}}",
+								"refund"
+							]
+						},
+						"description": "Refund a completed payment"
+					}
+				}
+			],
+			"description": "Payment-related endpoints"
 		}
 	],
 	"variable": [
 		{
 			"key": "token",
-			"value": "YOUR_JWT_TOKEN_HERE"
+			"value": "eyJhbGciOiJIUzI1NiIsImtpZCI6IkhwZW42TktrYk1hNnc0NDkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2ZzdHlkaGl3ZHp3c2pna2Jhb216LnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJkNjY2NDNiNC04ODFlLTQzZDAtYWVlOC0wMzIzYTYzN2RkZmEiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzQxMTkxMzM5LCJpYXQiOjE3NDExODc3MzksImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJyb2xlIjoiYXV0aGVudGljYXRlZCIsImFhbCI6ImFhbDEiLCJhbXIiOlt7Im1ldGhvZCI6InBhc3N3b3JkIiwidGltZXN0YW1wIjoxNzQxMTg3NzM5fV0sInNlc3Npb25faWQiOiI3ODk2NTdmNy0yYjk4LTQ3ZWMtOGJmMi1hZDUzNjcwMWU4NzAiLCJpc19hbm9ueW1vdXMiOmZhbHNlfQ.Zfq2XuG5HRr2GffIhI0Wt3uiPFtp0W-YDKGdtGSPz9k"
 		},
 		{
 			"key": "flight_id",
@@ -408,6 +516,10 @@
 		{
 			"key": "booking_id",
 			"value": "BOOKING_ID_HERE"
+		},
+		{
+			"key": "payment_id",
+			"value": "PAYMENT_ID_HERE"
 		}
 	]
 } 
