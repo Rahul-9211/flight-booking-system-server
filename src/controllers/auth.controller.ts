@@ -39,12 +39,26 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   async getProfile(@Request() req) {
     try {
+      // Log the user object to see what's available
+      console.log('User from request:', req.user);
+      
+      if (!req.user || !req.user.id) {
+        throw new HttpException('User not found in request', HttpStatus.UNAUTHORIZED);
+      }
+      
       return await this.authService.getProfile(req.user.id);
     } catch (error) {
+      console.error('Profile error:', error);
       throw new HttpException(
-        'Failed to retrieve profile',
+        error.message || 'Failed to retrieve profile',
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }
+  }
+  
+  // Add a test endpoint that doesn't require authentication
+  @Get('test')
+  async test() {
+    return { message: 'Auth API is working!' };
   }
 } 
