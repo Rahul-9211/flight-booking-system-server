@@ -53,6 +53,16 @@ export class AuthController {
   // Add a test endpoint that doesn't require authentication
   @Get('test')
   async test() {
-    return { message: 'Auth API is working!' };
+    console.log('Test endpoint called');
+    return { message: 'API is working!' };
+  }
+
+  @Get('cors-test')
+  async corsTest() {
+    console.log('CORS test endpoint called');
+    return { 
+      message: 'CORS is working!',
+      timestamp: new Date().toISOString()
+    };
   }
 } 

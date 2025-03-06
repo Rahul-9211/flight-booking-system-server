@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { SupabaseAuthGuard } from '../auth/supabase-auth.guard';
 
 @Controller('flights')
-@UseGuards(SupabaseAuthGuard)
 export class FlightController {
   constructor(private readonly flightService: FlightService) {}
 
@@ -22,6 +21,7 @@ export class FlightController {
   }
 
   @Sse(':id/status')
+  @UseGuards(SupabaseAuthGuard)
   subscribeToFlightStatus(@Param('id') id: string): Observable<MessageEvent> {
     console.log('Subscribing to flight status updates for flight:', id);
     return new Observable(observer => {
