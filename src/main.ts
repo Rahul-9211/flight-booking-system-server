@@ -6,7 +6,7 @@ async function bootstrap() {
   
   // Enable CORS for frontend requests
   app.enableCors({
-    origin: ['http://localhost:3001'],
+    origin: ['http://localhost:3001','https://flight-booking-system-app.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   });
